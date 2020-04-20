@@ -8,20 +8,6 @@ import pydash
 import clean
 from custom_spacy import add_custom_modules
 
-# TODO:
-# D=Done, NS=NotStarted, S=Started
-# Priority      Effort      Status      Issue
-# Medium        Low         D           Detect Provided Classifiers, such as "including portions in Denton, Parker, and Wise counties"
-# High          Medium      D           Adjacent Proper Nouns Merge
-# High          High        NS          Context! Is the order + or -? i.e. +: "stay-at-home order issued", -: "stay-at-home order removed"
-# Low           Low         D           Clean Stopwords
-# Medium        Low         D           Lemmatize Words
-# Low           High        S           Cross Sentence Context
-# Low           Low         D           Handle Abbreviations
-# -
-# -
-# -
-
 #TESTING MATERIALS
 # =========================================================================================
 # test = 'On March 24, Tarrant County issued a stay-at-home order through April 3.' 
@@ -53,8 +39,6 @@ class SpacyInsights:
 
     def get_nlp(self, text, display = False):
         clean_text = clean.clean_text(text)
-        # print("CLEANED TEXT PRINTING >>>")
-        # print(clean_text)
         doc = self.nlp(clean_text)
         if display:
             displacy.serve(doc, style="dep")
@@ -181,7 +165,7 @@ class SpacyInsights:
                     subject = self.find_parent_noun(verb)
                     relations.append((subject.lemma_, w.head.lemma_, w.lemma_))
                 else:
-                    [subject] = self.find_left_dependency(w.head, ("nsubj")) #[x for x in w.head.lefts if x.dep_ == "nsubj"]
+                    [subject] = self.find_left_dependency(w.head, ("nsubj")) 
                     relations.append((subject.lemma_, w.head.lemma_, w.lemma_))
             if w.dep_ == "pobj" and w.head.dep_ == "prep":
                 verb = w.head.head

@@ -50,8 +50,6 @@ def clean_text(doc):
         if len(abbreviations) > 0:
             split_doc[i] = fix_abbreviations(split_doc[i])
 
-    #split_doc = remove_stopwords(split_doc)
-
     for token in split_doc:
         filtered_sentence += token + ' '
 
